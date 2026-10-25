@@ -39,7 +39,7 @@ h1 em{font-style:normal;color:var(--accent);background:linear-gradient(transpare
 
 /* ROOM */
 .room{position:relative;aspect-ratio:1/1.05;border-radius:28px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(15,27,45,.45);background:#ddd}
-.room-wall{position:absolute;inset:0 0 24% 0;background:var(--wall);transition:background .6s ease}
+.room-wall{position:absolute;inset:0 0 24% 0;background:var(--wall);background-size:var(--wall-size,auto);transition:background .6s ease}
 .room-wall::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(255,255,255,.18),transparent 45%,rgba(0,0,0,.14))}
 .room-floor{position:absolute;inset:76% 0 0 0;background:repeating-linear-gradient(90deg,#b98b5e 0 70px,#a97d52 70px 72px)}
 .room-window{position:absolute;left:9%;top:11%;width:30%;height:38%;background:linear-gradient(#bfe3f5,#eaf6fc);border:8px solid #fffdf8;border-radius:6px;box-shadow:0 6px 14px rgba(0,0,0,.2)}
@@ -94,6 +94,7 @@ h2{font-size:clamp(2rem,4.5vw,3.1rem);font-weight:800;color:var(--ink)}
 .swatch{border:0;cursor:pointer;text-align:left;background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px;font:600 .9rem Inter,sans-serif;color:var(--ink);transition:transform .2s,border-color .2s}
 .swatch:hover{transform:translateY(-3px)}
 .swatch[aria-pressed="true"]{border-color:var(--ink)}
+.small{font-size:.85rem;margin-top:18px}
 .swatch i{display:block;height:70px;border-radius:10px;margin-bottom:8px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
 
 /* STEPS */
