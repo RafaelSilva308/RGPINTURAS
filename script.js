@@ -53,6 +53,26 @@ setColor(0);
 const range = document.getElementById("range");
 const before = document.getElementById("before");
 const handle = document.getElementById("handle");
+// Versões do "depois": com mais de uma, aparecem botões para alternar
+const afters = [
+  ["Branco Neve", "assets/depois-branco-neve.webp"],
+];
+const aftersBox = document.getElementById("afters");
+const afterImg = document.getElementById("afterImg");
+if (afters.length > 1) {
+  aftersBox.hidden = false;
+  afters.forEach(([label, src], i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = label;
+    b.setAttribute("aria-pressed", i === 0);
+    b.addEventListener("click", () => {
+      afterImg.src = src;
+      aftersBox.querySelectorAll("button").forEach((x, k) => x.setAttribute("aria-pressed", k === i));
+    });
+    aftersBox.appendChild(b);
+  });
+}
 range.addEventListener("input", () => {
   const v = range.value;
   before.style.clipPath = `inset(0 ${100 - v}% 0 0)`;

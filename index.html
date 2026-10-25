@@ -96,14 +96,19 @@
   <div class="section-head">
     <p class="eyebrow">Veja a diferença</p>
     <h2>Arraste e compare</h2>
-    <p class="muted">Simulação ilustrativa de uma parede com mofo e desgaste, antes e depois do tratamento.</p>
+    <p class="muted">Simulação ilustrativa (imagens geradas por IA) de uma parede com mofo e desgaste, antes e depois da pintura.</p>
   </div>
   <div class="compare" id="compare">
-    <div class="compare-after"><span class="tag tag-r">Depois</span></div>
-    <div class="compare-before" id="before"><span class="tag">Antes</span></div>
+    <img class="compare-img" id="afterImg" src="assets/depois-branco-neve.webp" alt="Parede após a pintura: branco neve, lisa e uniforme" width="1200" height="896" loading="lazy" draggable="false">
+    <span class="tag tag-r">Depois</span>
+    <div class="compare-before" id="before">
+      <img class="compare-img" src="assets/antes.webp" alt="Parede antes da pintura: com mofo, rachaduras e tinta descascando" width="1200" height="896" loading="lazy" draggable="false">
+      <span class="tag">Antes</span>
+    </div>
     <div class="compare-handle" id="handle"><span>⇆</span></div>
     <input type="range" min="0" max="100" value="50" id="range" aria-label="Comparar antes e depois">
   </div>
+  <div class="afters" id="afters" hidden></div>
 </section>
 
 <!-- CORES -->
