@@ -24,59 +24,68 @@ const marmorato = tex(`<feTurbulence type="fractalNoise" baseFrequency=".006 .02
 const pedras = tex(`<feTurbulence type="fractalNoise" baseFrequency=".055 .07" numOctaves="2" seed="4" stitchTiles="stitch"/>${toGray}<feComponentTransfer><feFuncR type="discrete" tableValues=".84 .70 .77 .64 .74 .82"/><feFuncG type="discrete" tableValues=".78 .64 .71 .58 .68 .76"/><feFuncB type="discrete" tableValues=".67 .53 .60 .47 .57 .65"/></feComponentTransfer>`);
 
 const colors = [
-  ["Branco", "#f2efe8"],
-  ["Branco Neve", "#fcfcfa"],
-  ["Branco Gelo", "#e2ecf0"],
-  ["Palha", "#e3d3a1"],
-  ["Areia", "#d6bf9a"],
-  ["Rondon", "#b8693f"],
-  ["Verde Primavera", "#8dbb6e"],
-  ["Cimento queimado", cimento, TEX],
-  ["Marmorato", marmorato, TEX],
-  ["Pedras naturais", pedras, TEX],
-  ["Tempestade", "#a8878a"],
-  ["Cipó da Amazônia", "#8b8a4a"],
+  ["Branco", "#f2efe8", "branco"],
+  ["Branco Neve", "#fcfcfa", "branco-neve"],
+  ["Branco Gelo", "#e2ecf0", "branco-gelo"],
+  ["Palha", "#e3d3a1", "palha"],
+  ["Areia", "#d6bf9a", "areia"],
+  ["Rondon", "#b8693f", "rondon"],
+  ["Verde Primavera", "#8dbb6e", "verde-primavera"],
+  ["Cimento queimado", cimento, "cimento-queimado", TEX],
+  ["Marmorato", marmorato, "marmorato", TEX],
+  ["Pedras naturais", pedras, "pedras-naturais", TEX],
+  ["Tempestade", "#a8878a", "tempestade"],
+  ["Cipó da Amazônia", "#8b8a4a", "cipo-da-amazonia"],
 ];
 const nameEl = document.getElementById("colorName");
 const box = document.getElementById("swatches");
-const tints = [document.getElementById("tintA"), document.getElementById("tintB")];
+const imgs = [document.getElementById("roomA"), document.getElementById("roomB")];
 const reduceMotion = matchMedia("(prefers-reduced-motion:reduce)").matches;
-let current = -1;
+const roomSrc = (i) => `assets/sala/${colors[i][2]}.webp`;
+const available = new Set();
+const swatchEls = [];
+let current = 1; // Branco Neve é a sala base já exibida
 let front = 0;
 
-// A parede é a foto com uma camada colorida por cima (multiply): luz e textura reais ficam
+// Cada cor é uma foto da mesma sala; a troca é um desvanecer entre duas imagens
 function setColor(i) {
-  if (i === current) return;
-  const [name, hex, size] = colors[i];
-  const next = tints[front ^ 1];
-  next.style.background = hex;
-  next.style.backgroundSize = size || "auto";
+  if (i === current || !available.has(i)) return;
+  const next = imgs[front ^ 1];
+  next.src = roomSrc(i);
   next.classList.add("on");
-  tints[front].classList.remove("on");
+  imgs[front].classList.remove("on");
   front ^= 1;
   current = i;
-  nameEl.textContent = name;
-  box.querySelectorAll(".swatch").forEach((b, j) => b.setAttribute("aria-pressed", j === i));
+  nameEl.textContent = colors[i][0];
+  swatchEls.forEach((b, j) => b.setAttribute("aria-pressed", j === i));
 }
 
-// Alterna sozinho entre as cores; ao escolher uma, dá uma pausa para ela ser vista
+// Alterna sozinho entre as cores disponíveis; ao escolher uma, dá uma pausa para ela ser vista
 let timer = null;
 let visible = true;
+function nextAvailable() {
+  for (let k = 1; k <= colors.length; k++) {
+    const i = (current + k) % colors.length;
+    if (available.has(i)) return i;
+  }
+  return current;
+}
 function play(delay = 3500) {
   clearTimeout(timer);
   if (reduceMotion) return;
   timer = setTimeout(() => {
-    if (visible && !document.hidden) setColor((current + 1) % colors.length);
+    if (visible && !document.hidden && available.size > 1) setColor(nextAvailable());
     play();
   }, delay);
 }
 
-colors.forEach(([name, hex, size], i) => {
+colors.forEach(([name, bg, , size], i) => {
   const b = document.createElement("button");
   b.className = "swatch";
   b.type = "button";
+  b.hidden = true; // aparece quando a foto da cor existir
   const chip = document.createElement("i");
-  chip.style.background = hex;
+  chip.style.background = bg;
   chip.style.backgroundSize = size ? "cover" : "auto";
   b.append(chip, name);
   b.addEventListener("click", () => {
@@ -85,8 +94,19 @@ colors.forEach(([name, hex, size], i) => {
     document.getElementById("room").scrollIntoView({ behavior: "smooth", block: "center" });
   });
   box.appendChild(b);
+  swatchEls.push(b);
 });
-setColor(5);
+
+// Pré-carrega as fotos; só as que existem entram na paleta e na troca automática
+colors.forEach((_, i) => {
+  const im = new Image();
+  im.onload = () => {
+    available.add(i);
+    swatchEls[i].hidden = false;
+    swatchEls[i].setAttribute("aria-pressed", i === current);
+  };
+  im.src = roomSrc(i);
+});
 play();
 new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(document.getElementById("room"));
 
