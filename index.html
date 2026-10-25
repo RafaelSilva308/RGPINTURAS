@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RG Pinturas | Pintura residencial e comercial em Brasília-DF</title>
+<meta name="description" content="RG Pinturas: pintura residencial, comercial e predial com acabamento de alto padrão. Peça seu orçamento sem compromisso pelo WhatsApp.">
+<meta name="theme-color" content="#0f1b2d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <a href="#top" class="logo" aria-label="RG Pinturas"><span class="logo-mark">RG</span> Pinturas</a>
+  <nav aria-label="Principal">
+    <a href="#servicos">Serviços</a>
+    <a href="#cores">Cores</a>
+    <a href="#processo">Como trabalhamos</a>
+    <a href="#faq">Dúvidas</a>
+  </nav>
+  <a class="btn btn-sm wa-link" href="#orcamento">Orçamento</a>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Pintura residencial · comercial · predial</p>
+    <h1>Sua parede <em>merece</em> uma cor nova.</h1>
+    <p class="lead">Acabamento limpo, obra organizada e prazo combinado. Da textura decorativa à fachada inteira, a RG Pinturas cuida de cada detalhe.</p>
+    <div class="cta-row">
+      <a class="btn wa-link" href="#">Chamar no WhatsApp</a>
+      <a class="btn btn-ghost" href="#cores">Testar cores</a>
+    </div>
+    <ul class="badges">
+      <li>Orçamento sem compromisso</li>
+      <li>Obra limpa e protegida</li>
+      <li>Brasília-DF e entorno</li>
+    </ul>
+  </div>
+
+  <div class="room" id="room" aria-label="Simulador de cor da parede">
+    <div class="room-wall" id="wall"></div>
+    <div class="room-floor"></div>
+    <div class="room-window"></div>
+    <div class="room-sofa"></div>
+    <div class="room-lamp"></div>
+    <div class="room-label" id="colorName">Terracota</div>
+  </div>
+</section>
+
+<!-- FAIXA -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Textura</span><span>Marmorato</span><span>Fachada</span><span>Epóxi</span><span>Antimofo</span><span>Efeito liso</span><span>Acetinado</span><span>Impermeabilizante</span>
+    <span>Textura</span><span>Marmorato</span><span>Fachada</span><span>Epóxi</span><span>Antimofo</span><span>Efeito liso</span><span>Acetinado</span><span>Impermeabilizante</span>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<section class="section" id="servicos">
+  <div class="section-head">
+    <p class="eyebrow">O que fazemos</p>
+    <h2>Do retoque à obra completa</h2>
+  </div>
+  <div class="cards">
+    <article class="card">
+      <span class="card-ico">🏠</span>
+      <h3>Pintura residencial</h3>
+      <p>Paredes, tetos, portas e janelas. Textura projetada ou rolada, efeito liso, acetinado, pedras naturais e marmorato.</p>
+    </article>
+    <article class="card">
+      <span class="card-ico">🏢</span>
+      <h3>Comercial e empresarial</h3>
+      <p>Escritórios, lojas e galpões. Fachadas, áreas externas e grandes ambientes com proteção contra chuva e sol.</p>
+    </article>
+    <article class="card">
+      <span class="card-ico">🛠️</span>
+      <h3>Retoques e manutenção</h3>
+      <p>Correção de riscos, manchas e bolhas. Renovação de tinta desgastada e restauração de paredes com mofo.</p>
+    </article>
+    <article class="card">
+      <span class="card-ico">🧪</span>
+      <h3>Pintura especializada</h3>
+      <p>Tintas antimofo e antifungos, epóxi para pisos e áreas úmidas, pintura em metal, madeira e ferragens.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ANTES E DEPOIS -->
+<section class="section dark" id="antes-depois">
+  <div class="section-head">
+    <p class="eyebrow">Veja a diferença</p>
+    <h2>Arraste e compare</h2>
+    <p class="muted">Simulação ilustrativa de uma parede com mofo e desgaste, antes e depois do tratamento.</p>
+  </div>
+  <div class="compare" id="compare">
+    <div class="compare-after"><span class="tag tag-r">Depois</span></div>
+    <div class="compare-before" id="before"><span class="tag">Antes</span></div>
+    <div class="compare-handle" id="handle"><span>⇆</span></div>
+    <input type="range" min="0" max="100" value="50" id="range" aria-label="Comparar antes e depois">
+  </div>
+</section>
+
+<!-- CORES -->
+<section class="section" id="cores">
+  <div class="section-head">
+    <p class="eyebrow">Escolha sua cor</p>
+    <h2>Teste na sala lá em cima</h2>
+    <p class="muted">Toque numa cor e veja a parede mudar. Na visita técnica levamos o catálogo para você decidir com calma.</p>
+  </div>
+  <div class="swatches" id="swatches"></div>
+</section>
+
+<!-- PROCESSO -->
+<section class="section soft" id="processo">
+  <div class="section-head">
+    <p class="eyebrow">Como trabalhamos</p>
+    <h2>Simples do início ao fim</h2>
+  </div>
+  <ol class="steps">
+    <li><b>1</b><h3>Contato</h3><p>Você chama no WhatsApp e conta o que precisa. Pode mandar fotos.</p></li>
+    <li><b>2</b><h3>Orçamento</h3><p>Avaliamos o espaço e passamos valor e prazo, sem compromisso.</p></li>
+    <li><b>3</b><h3>Preparação</h3><p>Proteção de móveis e pisos, reparos e lixamento antes da tinta.</p></li>
+    <li><b>4</b><h3>Pintura e entrega</h3><p>Aplicação com cuidado, limpeza final e conferência com você.</p></li>
+  </ol>
+</section>
+
+<!-- ORÇAMENTO -->
+<section class="section" id="orcamento">
+  <div class="quote">
+    <div>
+      <p class="eyebrow">Orçamento rápido</p>
+      <h2>Conte o que você precisa</h2>
+      <p class="muted">Preencha e abriremos o WhatsApp com a mensagem pronta. Sem cadastro, sem enrolação.</p>
+      <p class="phone">📞 <a class="wa-link" href="#">+55 61 99387-9406</a></p>
+    </div>
+    <form id="form" novalidate>
+      <label>Seu nome
+        <input name="nome" required autocomplete="name" placeholder="Maria Silva">
+      </label>
+      <label>Tipo de serviço
+        <select name="servico">
+          <option>Pintura residencial</option>
+          <option>Pintura comercial</option>
+          <option>Textura / efeito decorativo</option>
+          <option>Retoque / manutenção</option>
+          <option>Antimofo / epóxi / especializada</option>
+        </select>
+      </label>
+      <label>Cidade ou bairro
+        <input name="local" autocomplete="address-level2" placeholder="Ex.: Taguatinga">
+      </label>
+      <label>Detalhes (opcional)
+        <textarea name="obs" rows="3" placeholder="Metragem aproximada, cômodos, prazo desejado..."></textarea>
+      </label>
+      <button class="btn" type="submit">Enviar pelo WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section soft" id="faq">
+  <div class="section-head">
+    <p class="eyebrow">Dúvidas frequentes</p>
+    <h2>Antes de chamar</h2>
+  </div>
+  <div class="faq">
+    <details><summary>O orçamento tem custo?</summary><p>Não. O orçamento é sem compromisso. Você manda fotos e detalhes pelo WhatsApp e retornamos com os valores.</p></details>
+    <details><summary>Vocês protegem móveis e pisos?</summary><p>Sim. A preparação inclui cobrir móveis, pisos e esquadrias, e a obra termina com limpeza.</p></details>
+    <details><summary>Quais regiões vocês atendem?</summary><p>Brasília-DF e entorno. Se estiver em dúvida se atendemos sua região, é só perguntar.</p></details>
+    <details><summary>Trabalham com texturas e efeitos?</summary><p>Sim: textura projetada ou rolada, liso, acetinado, marmorato e efeito de pedras naturais.</p></details>
+    <details><summary>Resolvem mofo e infiltração?</summary><p>Tratamos paredes com mofo usando tintas antimofo e antifungos. Se houver infiltração ativa, avaliamos a causa antes de pintar.</p></details>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div>
+    <a href="#top" class="logo"><span class="logo-mark">RG</span> Pinturas</a>
+    <p>Pintura com capricho em Brasília-DF e entorno.</p>
+  </div>
+  <div>
+    <a class="wa-link" href="#">WhatsApp: +55 61 99387-9406</a>
+    <p>© <span id="year"></span> RG Pinturas. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<a class="fab wa-link" href="#" aria-label="Chamar no WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.3.7 4.5 1.900 6.400L4 29l7.900-2c1.800 1 3.900 1.500 6.100 1.500 6.600 0 12-5.300 12-11.900S22.600 3 16 3zm0 21.800c-1.900 0-3.800-.5-5.400-1.500l-.4-.2-4.700 1.200 1.300-4.500-.3-.5A9.700 9.700 0 0 1 6.200 15C6.200 9.600 10.600 5.300 16 5.300s9.800 4.300 9.800 9.700-4.400 9.800-9.800 9.800zm5.400-7.300c-.3-.1-1.800-.9-2-1-.3-.1-.5-.1-.7.100-.2.300-.8 1-.9 1.200-.2.200-.3.200-.6.100-.3-.1-1.300-.5-2.400-1.500-.9-.8-1.500-1.800-1.700-2.100-.2-.3 0-.5.100-.6l.5-.5c.1-.2.200-.3.300-.5.100-.2 0-.4 0-.5l-1-2.300c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.100-.8.400-.3.300-1 1-1 2.500s1.100 2.900 1.200 3.100c.1.200 2.100 3.300 5.200 4.600.7.300 1.300.5 1.700.6.700.2 1.400.2 1.900.1.600-.1 1.800-.7 2-1.400.3-.7.300-1.300.2-1.400-.1-.1-.3-.2-.6-.3z"/></svg>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>
