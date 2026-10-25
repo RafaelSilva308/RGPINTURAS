@@ -108,3 +108,17 @@ document.querySelectorAll(".card,.steps li,.section-head,details,.swatch").forEa
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// Menu mobile
+const nav = document.querySelector(".nav");
+const menuBtn = document.getElementById("menu");
+menuBtn.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+  menuBtn.textContent = open ? "✕" : "☰";
+});
+nav.querySelectorAll("nav a, .btn").forEach((a) => a.addEventListener("click", () => {
+  nav.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded", "false");
+  menuBtn.textContent = "☰";
+}));
