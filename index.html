@@ -43,13 +43,17 @@
     </ul>
   </div>
 
-  <div class="room" id="room" aria-label="Simulador de cor da parede">
-    <div class="room-wall" id="wall"></div>
-    <div class="room-floor"></div>
-    <div class="room-window"></div>
-    <div class="room-sofa"></div>
-    <div class="room-lamp"></div>
-    <div class="room-label" id="colorName">Terracota</div>
+  <div class="room" id="room" role="img" aria-label="Sala com a parede mudando de cor. Escolha uma cor na paleta abaixo.">
+    <img class="room-img" src="assets/depois-branco-neve.webp" alt="" width="1200" height="896" decoding="async" fetchpriority="high">
+    <div class="tint" id="tintA"></div>
+    <div class="tint" id="tintB"></div>
+    <div class="room-label" id="colorName" aria-live="polite">Rondon</div>
+    <svg width="0" height="0" aria-hidden="true" focusable="false"><defs>
+      <clipPath id="wallClip" clipPathUnits="objectBoundingBox">
+        <polygon points="0.2083,0.0536 1,0.0536 1,0.7010 0.8625,0.7010 0.8625,0.8795 0.2083,0.8795"/>
+        <polygon points="0.1167,0.0446 0.2067,0.0536 0.2067,0.8795 0.1983,0.8929 0.125,0.9933 0,0.9933 0,0.705 0.1267,0.705 0.1167,0.6362"/>
+      </clipPath>
+    </defs></svg>
   </div>
 </section>
 

@@ -1,7 +1,6 @@
 :root{
   --ink:#0f1b2d; --ink-2:#1b2b44; --paper:#faf7f2; --soft:#f1ebe1; --line:#e4dccd;
   --accent:#e4572e; --accent-2:#f6b93b; --text:#1c2433; --muted:#5d667a;
-  --wall:#c8684a;
   --r:20px; --max:1160px;
 }
 *{box-sizing:border-box;margin:0}
@@ -38,15 +37,10 @@ h1 em{font-style:normal;color:var(--accent);background:linear-gradient(transpare
 .badges li::before{content:"✓ ";color:var(--accent);font-weight:700}
 
 /* ROOM */
-.room{position:relative;aspect-ratio:1/1.05;border-radius:28px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(15,27,45,.45);background:#ddd}
-.room-wall{position:absolute;inset:0 0 24% 0;background:var(--wall);background-size:var(--wall-size,auto);transition:background .6s ease}
-.room-wall::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(255,255,255,.18),transparent 45%,rgba(0,0,0,.14))}
-.room-floor{position:absolute;inset:76% 0 0 0;background:repeating-linear-gradient(90deg,#b98b5e 0 70px,#a97d52 70px 72px)}
-.room-window{position:absolute;left:9%;top:11%;width:30%;height:38%;background:linear-gradient(#bfe3f5,#eaf6fc);border:8px solid #fffdf8;border-radius:6px;box-shadow:0 6px 14px rgba(0,0,0,.2)}
-.room-window::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:6px;background:#fffdf8;transform:translateX(-50%)}
-.room-sofa{position:absolute;left:34%;right:6%;bottom:12%;height:26%;background:#2b3a55;border-radius:22px 22px 12px 12px;box-shadow:0 -22px 0 -6px #34456a,inset 0 -10px 0 rgba(0,0,0,.18)}
-.room-lamp{position:absolute;right:11%;top:16%;width:4px;height:36%;background:#222}
-.room-lamp::before{content:"";position:absolute;left:50%;top:-16px;width:56px;height:38px;background:#f6e3b0;border-radius:50% 50% 8px 8px;transform:translateX(-50%);box-shadow:0 0 50px 18px rgba(255,220,140,.45)}
+.room{position:relative;aspect-ratio:1200/896;border-radius:28px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(15,27,45,.45);background:#ddd}
+.room-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.tint{position:absolute;inset:0;mix-blend-mode:multiply;clip-path:url(#wallClip);opacity:0;transition:opacity 1.1s ease;pointer-events:none}
+.tint.on{opacity:1}
 .room-label{position:absolute;left:16px;bottom:16px;background:rgba(15,27,45,.85);color:#fff;font-size:.85rem;font-weight:600;padding:8px 14px;border-radius:999px}
 
 /* MARQUEE */
@@ -190,7 +184,6 @@ details p{margin-top:12px;color:var(--muted)}
 @media (max-width:560px){
   .cta-row .btn{flex:1 1 100%;text-align:center}
   .badges{flex-direction:column;gap:8px}
-  .room{aspect-ratio:1/1}
   .steps{gap:20px}
   .section-head{margin-bottom:28px}
   .quote{border-radius:24px}

@@ -11,6 +11,18 @@ document.querySelectorAll(".wa-link").forEach((a) => {
 });
 
 // Simulador de cores
+// Texturas procedurais (SVG com ruído) para os acabamentos; aplicadas com multiply sobre a foto
+const tex = (inner) =>
+  `url("data:image/svg+xml,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="520" height="520"><filter id="f" x="0" y="0" width="100%" height="100%">${inner}</filter><rect width="520" height="520" filter="url(#f)"/></svg>`
+  )}")`;
+const toGray = '<feColorMatrix type="matrix" values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1"/>';
+const TEX = "520px 520px";
+const cimento = tex(`<feTurbulence type="fractalNoise" baseFrequency=".009 .014" numOctaves="5" seed="7" stitchTiles="stitch"/>${toGray}<feComponentTransfer><feFuncR type="linear" slope="1.5" intercept="-.12"/><feFuncG type="linear" slope="1.5" intercept="-.12"/><feFuncB type="linear" slope="1.5" intercept="-.1"/></feComponentTransfer>`);
+const veio = "0.97 0.97 0.97 0.97 0.95 0.82 0.6 0.82 0.95 0.97 0.97 0.97 0.97";
+const marmorato = tex(`<feTurbulence type="fractalNoise" baseFrequency=".006 .02" numOctaves="5" seed="11" stitchTiles="stitch"/>${toGray}<feComponentTransfer><feFuncR type="table" tableValues="${veio}"/><feFuncG type="table" tableValues="${veio}"/><feFuncB type="table" tableValues="${veio}"/></feComponentTransfer><feColorMatrix type="matrix" values=".99 0 0 0 0 0 .96 0 0 0 0 0 .9 0 0 0 0 0 0 1"/>`);
+const pedras = tex(`<feTurbulence type="fractalNoise" baseFrequency=".055 .07" numOctaves="2" seed="4" stitchTiles="stitch"/>${toGray}<feComponentTransfer><feFuncR type="discrete" tableValues=".84 .70 .77 .64 .74 .82"/><feFuncG type="discrete" tableValues=".78 .64 .71 .58 .68 .76"/><feFuncB type="discrete" tableValues=".67 .53 .60 .47 .57 .65"/></feComponentTransfer>`);
+
 const colors = [
   ["Branco", "#f2efe8"],
   ["Branco Neve", "#fcfcfa"],
@@ -19,35 +31,64 @@ const colors = [
   ["Areia", "#d6bf9a"],
   ["Rondon", "#b8693f"],
   ["Verde Primavera", "#8dbb6e"],
-  ["Cimento queimado", "radial-gradient(circle at 20% 30%,rgba(255,255,255,.14),transparent 40%),radial-gradient(circle at 70% 70%,rgba(0,0,0,.12),transparent 45%),linear-gradient(135deg,#9a9b98,#83868a)"],
-  ["Marmorato", "linear-gradient(115deg,#f1ebe1 0 22%,#d9cebf 32%,#f6f1e8 42%,#c9bcaa 56%,#efe8dc 70%,#d3c7b6 86%,#f1ebe1)"],
-  ["Pedras naturais", "radial-gradient(circle at 18% 28%,#b9aa94 0 9%,transparent 10%),radial-gradient(circle at 52% 20%,#8f8271 0 8%,transparent 9%),radial-gradient(circle at 80% 38%,#c9bda9 0 10%,transparent 11%),radial-gradient(circle at 30% 72%,#a39580 0 11%,transparent 12%),radial-gradient(circle at 68% 78%,#7f735f 0 9%,transparent 10%),#cfc4b0", "64px 64px"],
+  ["Cimento queimado", cimento, TEX],
+  ["Marmorato", marmorato, TEX],
+  ["Pedras naturais", pedras, TEX],
   ["Tempestade", "#a8878a"],
   ["Cipó da Amazônia", "#8b8a4a"],
 ];
-const wall = document.getElementById("wall");
 const nameEl = document.getElementById("colorName");
 const box = document.getElementById("swatches");
+const tints = [document.getElementById("tintA"), document.getElementById("tintB")];
+const reduceMotion = matchMedia("(prefers-reduced-motion:reduce)").matches;
+let current = -1;
+let front = 0;
 
+// A parede é a foto com uma camada colorida por cima (multiply): luz e textura reais ficam
 function setColor(i) {
+  if (i === current) return;
   const [name, hex, size] = colors[i];
-  document.documentElement.style.setProperty("--wall", hex);
-  document.documentElement.style.setProperty("--wall-size", size || "auto");
+  const next = tints[front ^ 1];
+  next.style.background = hex;
+  next.style.backgroundSize = size || "auto";
+  next.classList.add("on");
+  tints[front].classList.remove("on");
+  front ^= 1;
+  current = i;
   nameEl.textContent = name;
   box.querySelectorAll(".swatch").forEach((b, j) => b.setAttribute("aria-pressed", j === i));
 }
+
+// Alterna sozinho entre as cores; ao escolher uma, dá uma pausa para ela ser vista
+let timer = null;
+let visible = true;
+function play(delay = 3500) {
+  clearTimeout(timer);
+  if (reduceMotion) return;
+  timer = setTimeout(() => {
+    if (visible && !document.hidden) setColor((current + 1) % colors.length);
+    play();
+  }, delay);
+}
+
 colors.forEach(([name, hex, size], i) => {
   const b = document.createElement("button");
   b.className = "swatch";
   b.type = "button";
-  b.innerHTML = `<i style="background:${hex};background-size:${size ? "32px 32px" : "auto"}"></i>${name}`;
+  const chip = document.createElement("i");
+  chip.style.background = hex;
+  chip.style.backgroundSize = size ? "cover" : "auto";
+  b.append(chip, name);
   b.addEventListener("click", () => {
     setColor(i);
+    play(9000);
     document.getElementById("room").scrollIntoView({ behavior: "smooth", block: "center" });
   });
   box.appendChild(b);
 });
-setColor(0);
+setColor(5);
+play();
+new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(document.getElementById("room"));
 
 // Antes e depois
 const range = document.getElementById("range");
