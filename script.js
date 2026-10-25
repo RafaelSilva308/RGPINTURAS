@@ -98,7 +98,8 @@ colors.forEach(([name, bg, , size], i) => {
 });
 
 // Pré-carrega as fotos; só as que existem entram na paleta e na troca automática
-colors.forEach((_, i) => {
+// (depois do carregamento da página, para não competir com a imagem do topo)
+const preload = () => colors.forEach((_, i) => {
   const im = new Image();
   im.onload = () => {
     available.add(i);
@@ -107,6 +108,8 @@ colors.forEach((_, i) => {
   };
   im.src = roomSrc(i);
 });
+if (document.readyState === "complete") preload();
+else addEventListener("load", preload);
 play();
 new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(document.getElementById("room"));
 
