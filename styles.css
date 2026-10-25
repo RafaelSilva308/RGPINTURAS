@@ -123,6 +123,34 @@ summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--accent);tr
 details[open] summary::after{transform:rotate(45deg)}
 details p{margin-top:12px;color:var(--muted)}
 
+/* BUSINESS CARD */
+.cardsec{background:radial-gradient(circle at 50% 0,#fff,var(--paper) 70%)}
+.center{text-align:center;margin-inline:auto}
+.cta-row.center{justify-content:center}
+.bcard-wrap{display:grid;gap:34px;justify-items:center}
+.bcard{width:min(100%,560px);aspect-ratio:1.75/1;perspective:1400px;cursor:pointer;border-radius:22px;transition:transform .15s ease-out}
+.bcard-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,.8,.2,1)}
+.bcard.flipped .bcard-inner{transform:rotateY(180deg)}
+.bcard-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;overflow:hidden;padding:clamp(18px,4vw,34px);display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 40px 70px -30px rgba(15,27,45,.6),0 0 0 1px rgba(255,255,255,.08) inset}
+.bcard-front{background:radial-gradient(circle at 85% 10%,#2a4066,transparent 55%),linear-gradient(135deg,#0f1b2d,#16263f);color:#fff}
+.bcard-front::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.14) 50%,transparent 60%);transform:translateX(-120%);animation:shine 5s ease-in-out infinite}
+@keyframes shine{50%,100%{transform:translateX(120%)}}
+.bcard-drips{position:absolute;top:0;right:0;width:46%;height:46%;background:var(--accent);border-bottom-left-radius:34px}
+.bcard-drips::after{content:"";position:absolute;left:12%;bottom:-18%;width:14%;height:34%;background:var(--accent);border-radius:0 0 999px 999px}
+.bcard-drips::before{content:"";position:absolute;left:46%;bottom:-8%;width:10%;height:22%;background:var(--accent);border-radius:0 0 999px 999px}
+.bcard-mark{position:relative;display:grid;place-items:center;width:clamp(48px,11vw,64px);aspect-ratio:1;border-radius:16px;background:var(--accent-2);color:var(--ink);font:800 clamp(1.2rem,3.5vw,1.6rem) "Bricolage Grotesque",sans-serif}
+.bcard-front h3{font-size:clamp(1.7rem,6vw,2.6rem);font-weight:800}
+.bcard-front p{color:#aab4c8;font-size:clamp(.78rem,2.2vw,.95rem);margin-top:6px}
+.bcard-front small{position:absolute;right:clamp(18px,4vw,34px);bottom:clamp(14px,3vw,24px);color:#7f8ca6;font-size:.75rem}
+.bcard-back{transform:rotateY(180deg);background:linear-gradient(135deg,#fff7ea,#f6e7cf);color:var(--ink);justify-content:flex-start;gap:8px;border:1px solid #ead9bb}
+.bcard-back::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:linear-gradient(var(--accent),var(--accent-2))}
+.bcard-kicker{font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.bcard-back h3{font-size:clamp(1.25rem,4.4vw,1.9rem);font-weight:800}
+.bcard-back ul{list-style:none;padding:0;margin-top:auto;display:grid;gap:7px}
+.bcard-back li{display:flex;justify-content:space-between;gap:12px;border-top:1px dashed rgba(15,27,45,.2);padding-top:7px;font-size:clamp(.74rem,2.2vw,.92rem)}
+.bcard-back li span{color:var(--muted)}
+.bcard-back li b{text-align:right}
+
 /* FOOTER */
 .footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;padding:40px max(16px,calc((100vw - var(--max))/2)) 90px;font-size:.92rem;color:var(--muted)}
 .footer .logo{margin-bottom:6px}

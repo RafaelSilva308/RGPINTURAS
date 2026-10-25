@@ -66,6 +66,38 @@ document.getElementById("form").addEventListener("submit", (e) => {
   window.open(waUrl(msg), "_blank", "noopener");
 });
 
+// Cartão de visita: vira ao clicar/teclar e inclina com o mouse
+const bcard = document.getElementById("bcard");
+const flip = () => {
+  const on = bcard.classList.toggle("flipped");
+  bcard.setAttribute("aria-pressed", on);
+};
+bcard.addEventListener("click", flip);
+bcard.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); }
+});
+if (matchMedia("(hover:hover)").matches && !matchMedia("(prefers-reduced-motion:reduce)").matches) {
+  bcard.addEventListener("mousemove", (e) => {
+    const r = bcard.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    bcard.style.transform = `rotateX(${(-y * 8).toFixed(1)}deg) rotateY(${(x * 8).toFixed(1)}deg)`;
+  });
+  bcard.addEventListener("mouseleave", () => { bcard.style.transform = ""; });
+}
+
+// Salvar contato (vCard gerado no navegador)
+document.getElementById("saveContact").addEventListener("click", () => {
+  const vcf = ["BEGIN:VCARD", "VERSION:3.0", "FN:RG Pinturas", "ORG:RG Pinturas",
+    "TITLE:Pintura residencial, comercial e predial", "TEL;TYPE=CELL,VOICE:+5561993879406",
+    "NOTE:Atendemos Brasília-DF e entorno. Orçamento sem compromisso.", "END:VCARD"].join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([vcf], { type: "text/vcard" }));
+  a.download = "RG-Pinturas.vcf";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
 // Animação de entrada
 const io = new IntersectionObserver((entries) => {
   entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
